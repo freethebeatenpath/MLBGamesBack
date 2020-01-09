@@ -59,14 +59,16 @@ public class FragmentGameBack extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        objectList = new HashMap<>();
+        getService();
         return inflater.inflate(R.layout.fragment_gameback, parent, false);
 
     }
 
-    // THe onViewCreated() event is triggered soon after onCreateView().
+    // The onViewCreated() event is triggered soon after onCreateView(). It creates and returns the view hierarchy associated with the fragment.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
+        userList = getActivity().findViewById(R.id.listView);
     }
 
     private void getService() {
@@ -106,21 +108,21 @@ public class FragmentGameBack extends Fragment {
         JSONArray recordsArray = json.getJSONArray(DATA_RETRIEVAL_RECORDS);
         for (int i = 0; i < recordsArray.length(); i++) {
             ArrayList<MLBObject> leagues = new ArrayList<>();
-            JSONObject jo_inside = recordsArray.getJSONObject(i);
-            JSONObject jo_insidea = jo_inside.getJSONObject(DATA_RETRIEVAL_DIVISION);
-            String division_id = jo_insidea.getString(DATA_RETRIEVAL_ID);
-            JSONArray teamRecordsArry = jo_inside.getJSONArray(DATA_RETRIEVAL_TEAMRECORDS);
+            JSONObject mRecord = recordsArray.getJSONObject(i);
+            JSONObject mRecordDivision = mRecord.getJSONObject(DATA_RETRIEVAL_DIVISION);
+            String division_id = mRecordDivision.getString(DATA_RETRIEVAL_ID);
+            JSONArray teamRecordsArry = mRecord.getJSONArray(DATA_RETRIEVAL_TEAMRECORDS);
             for (int j = 0; j < teamRecordsArry.length(); j++) {
                 MLBObject mlbObject = new MLBObject(division_id);
-                JSONObject teamRecordsArry_in = teamRecordsArry.getJSONObject(j);
-                JSONObject teamRecordsArry_in_team = teamRecordsArry_in.getJSONObject(DATA_RETRIEVAL_TEAM);
-                Log.d("NIKO_team_id-->", teamRecordsArry_in_team.getString(DATA_RETRIEVAL_ID));
-                Log.d("NIKO_team_name-->", teamRecordsArry_in_team.getString(DATA_RETRIEVAL_NAME));
-                Log.d("NIKO_gamesBack-->", teamRecordsArry_in.getString(DATA_RETRIEVAL_GAMESBACK));
-                mlbObject.setTeamId(teamRecordsArry_in_team.getString(DATA_RETRIEVAL_ID));
+                JSONObject mTeamRecordsObject = teamRecordsArry.getJSONObject(j);
+                JSONObject mTeamRecordsObjectTeam = mTeamRecordsObject.getJSONObject(DATA_RETRIEVAL_TEAM);
+                Log.d("NIKO_team_id-->", mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_ID));
+                Log.d("NIKO_team_name-->", mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_NAME));
+                Log.d("NIKO_gamesBack-->", mTeamRecordsObject.getString(DATA_RETRIEVAL_GAMESBACK));
+                mlbObject.setTeamId(mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_ID));
                 mlbObject.setDivisionName(getDivisionName(division_id));
-                mlbObject.setTeamName(teamRecordsArry_in_team.getString(DATA_RETRIEVAL_NAME));
-                mlbObject.setGameBack(teamRecordsArry_in.getString(DATA_RETRIEVAL_GAMESBACK));
+                mlbObject.setTeamName(mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_NAME));
+                mlbObject.setGameBack(mTeamRecordsObject.getString(DATA_RETRIEVAL_GAMESBACK));
                 leagues.add(mlbObject);
             }
             objectList.put(division_id, leagues);
@@ -138,6 +140,7 @@ public class FragmentGameBack extends Fragment {
         else return NATIONAL_LEAGUE_CENTRAL;
     }
 
+    //re-organizing the hashmap to one list so it can be displayed
     private void displayData() {
         listObject = new ArrayList<>();
         listObject.add(new MLBObject(AMERICAN_LEAGUE_EAST, GAMEBACK));
@@ -153,7 +156,13 @@ public class FragmentGameBack extends Fragment {
         listObject.add(new MLBObject(NATIONAL_LEAGUE_WEST, GAMEBACK));
         listObject.addAll(objectList.get(NATIONAL_LEAGUE_WEST_NUM));
 
-        //TODO Need to initialize adapter here
-
+        //need to make sure we go back on the UI thread to display and set the adapter.
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DisplayAdapter adapter = new DisplayAdapter(getContext(), listObject);
+                userList.setAdapter(adapter);
+            }
+        });
     }
 }
