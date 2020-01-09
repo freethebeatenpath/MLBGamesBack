@@ -45,12 +45,12 @@ I could assume that because the “divisionRecords” showing the American Leagu
 
 
 I could run separate API calls to like to get the appropriate data to fill in the blanks.
-https://statsapi.mlb.com/api/v1/divisions/200
-https://statsapi.mlb.com/api/v1/divisions/201
-https://statsapi.mlb.com/api/v1/divisions/202
-https://statsapi.mlb.com/api/v1/divisions/203
-https://statsapi.mlb.com/api/v1/divisions/204
-https://statsapi.mlb.com/api/v1/divisions/205
+- https://statsapi.mlb.com/api/v1/divisions/200
+- https://statsapi.mlb.com/api/v1/divisions/201
+- https://statsapi.mlb.com/api/v1/divisions/202
+- https://statsapi.mlb.com/api/v1/divisions/203
+- https://statsapi.mlb.com/api/v1/divisions/204
+- https://statsapi.mlb.com/api/v1/divisions/205
 
 
 I instead hard code a little the division id with the division name.
