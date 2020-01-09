@@ -2,31 +2,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:paddingStart="@dimen/medium_spacing"
+    android:paddingEnd="@dimen/medium_spacing">
 
     <TextView
         android:id="@+id/txtcola"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:textColor="#000" />
+        android:paddingTop="@dimen/medium_spacing"
+        android:paddingBottom="@dimen/medium_spacing"
+        android:textColor="@color/off_black" />
     <View
         android:layout_height="match_parent"
-        android:layout_width="1dp"
-        android:background="#666666"/>
+        android:layout_width="@dimen/oneDip"
+        android:background="@color/drk_gray"/>
 
     <TextView
         android:id="@+id/txtcolb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:textColor="#000"
-        android:paddingLeft="8dp" />
+        android:paddingTop="@dimen/medium_spacing"
+        android:paddingBottom="@dimen/medium_spacing"
+        android:textColor="@color/off_black"
+        android:paddingLeft="@dimen/small_spacing" />
 
 
 </LinearLayout>

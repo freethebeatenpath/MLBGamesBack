@@ -19,7 +19,6 @@ public class DisplayAdapter extends BaseAdapter {
 
     public DisplayAdapter(Context fragmentGameBack, ArrayList<MLBObject> mlbObject) {
         this.mContext = fragmentGameBack;
-        //transfer content from database to temporary memory
         this.mlbObject = mlbObject;
     }
 

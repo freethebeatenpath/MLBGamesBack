@@ -1,0 +1,12 @@
+<resources>
+
+    <dimen name="oneDip">1dp</dimen>
+
+    <!-- COMMON SPACING -->
+    <dimen name="xxxsmall_spacing">1dp</dimen>
+    <dimen name="xxsmall_spacing">2dp</dimen>
+    <dimen name="xsmall_spacing">4dp</dimen>
+    <dimen name="small_spacing">8dp</dimen>
+    <dimen name="medium_spacing">16dp</dimen>
+    <dimen name="large_spacing">32dp</dimen>
+</resources>

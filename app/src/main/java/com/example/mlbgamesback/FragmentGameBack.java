@@ -74,7 +74,6 @@ public class FragmentGameBack extends Fragment {
     private void getService() {
         OkHttpClient client = new OkHttpClient.Builder().build();
         Request request = new Request.Builder().url(URL).addHeader("User-Agent", "OkHttp").build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(final Call call, IOException e) {
@@ -83,7 +82,6 @@ public class FragmentGameBack extends Fragment {
                     public void run() {
                         Toast toast = Toast.makeText(getContext(), call.toString() + " - FragmentGameBack - Failure !", Toast.LENGTH_SHORT);
                         toast.show();
-
                     }
                 });
             }
@@ -116,9 +114,6 @@ public class FragmentGameBack extends Fragment {
                 MLBObject mlbObject = new MLBObject(division_id);
                 JSONObject mTeamRecordsObject = teamRecordsArry.getJSONObject(j);
                 JSONObject mTeamRecordsObjectTeam = mTeamRecordsObject.getJSONObject(DATA_RETRIEVAL_TEAM);
-                Log.d("NIKO_team_id-->", mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_ID));
-                Log.d("NIKO_team_name-->", mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_NAME));
-                Log.d("NIKO_gamesBack-->", mTeamRecordsObject.getString(DATA_RETRIEVAL_GAMESBACK));
                 mlbObject.setTeamId(mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_ID));
                 mlbObject.setDivisionName(getDivisionName(division_id));
                 mlbObject.setTeamName(mTeamRecordsObjectTeam.getString(DATA_RETRIEVAL_NAME));
@@ -127,6 +122,7 @@ public class FragmentGameBack extends Fragment {
             }
             objectList.put(division_id, leagues);
         }
+        displayData();
     }
 
 
