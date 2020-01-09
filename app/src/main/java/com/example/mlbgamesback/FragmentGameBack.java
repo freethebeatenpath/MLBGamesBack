@@ -1,7 +1,6 @@
 package com.example.mlbgamesback;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +48,6 @@ public class FragmentGameBack extends Fragment {
     public final static String DATA_RETRIEVAL_GAMESBACK = "gamesBack";
 
     public final static String URL = "https://storage.mobileqa.mlbinfra.com/bpteam/interview/standings.json";
-
-
     private JSONObject jsonObject;
     private ListView userList;
     private HashMap<String, ArrayList<MLBObject>> objectList;
