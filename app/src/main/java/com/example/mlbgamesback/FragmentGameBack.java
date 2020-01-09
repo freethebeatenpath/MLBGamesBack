@@ -104,7 +104,29 @@ public class FragmentGameBack extends Fragment {
 
     private void populate(JSONObject json) throws JSONException {
         JSONArray recordsArray = json.getJSONArray(DATA_RETRIEVAL_RECORDS);
+        for (int i = 0; i < recordsArray.length(); i++) {
+            ArrayList<MLBObject> leagues = new ArrayList<>();
+            JSONObject jo_inside = recordsArray.getJSONObject(i);
+            JSONObject jo_insidea = jo_inside.getJSONObject(DATA_RETRIEVAL_DIVISION);
+            String division_id = jo_insidea.getString(DATA_RETRIEVAL_ID);
+            JSONArray teamRecordsArry = jo_inside.getJSONArray(DATA_RETRIEVAL_TEAMRECORDS);
+            for (int j = 0; j < teamRecordsArry.length(); j++) {
+                MLBObject mlbObject = new MLBObject(division_id);
+                JSONObject teamRecordsArry_in = teamRecordsArry.getJSONObject(j);
+                JSONObject teamRecordsArry_in_team = teamRecordsArry_in.getJSONObject(DATA_RETRIEVAL_TEAM);
+                Log.d("NIKO_team_id-->", teamRecordsArry_in_team.getString(DATA_RETRIEVAL_ID));
+                Log.d("NIKO_team_name-->", teamRecordsArry_in_team.getString(DATA_RETRIEVAL_NAME));
+                Log.d("NIKO_gamesBack-->", teamRecordsArry_in.getString(DATA_RETRIEVAL_GAMESBACK));
+                mlbObject.setTeamId(teamRecordsArry_in_team.getString(DATA_RETRIEVAL_ID));
+                mlbObject.setDivisionName(getDivisionName(division_id));
+                mlbObject.setTeamName(teamRecordsArry_in_team.getString(DATA_RETRIEVAL_NAME));
+                mlbObject.setGameBack(teamRecordsArry_in.getString(DATA_RETRIEVAL_GAMESBACK));
+                leagues.add(mlbObject);
+            }
+            objectList.put(division_id, leagues);
+        }
     }
+
 
     //we know for this case that it will not return a Null. If not I would put in safeguards.
     private String getDivisionName(String s) {
@@ -116,5 +138,22 @@ public class FragmentGameBack extends Fragment {
         else return NATIONAL_LEAGUE_CENTRAL;
     }
 
+    private void displayData() {
+        listObject = new ArrayList<>();
+        listObject.add(new MLBObject(AMERICAN_LEAGUE_EAST, GAMEBACK));
+        listObject.addAll(objectList.get(AMERICAN_LEAGUE_EAST_NUM));
+        listObject.add(new MLBObject(AMERICAN_LEAGUE_CENTRAL, GAMEBACK));
+        listObject.addAll(objectList.get(AMERICAN_LEAGUE_CENTRAL_NUM));
+        listObject.add(new MLBObject(AMERICAN_LEAGUE_WEST, GAMEBACK));
+        listObject.addAll(objectList.get(AMERICAN_LEAGUE_WEST_NUM));
+        listObject.add(new MLBObject(NATIONAL_LEAGUE_EAST, GAMEBACK));
+        listObject.addAll(objectList.get(NATIONAL_LEAGUE_EAST_NUM));
+        listObject.add(new MLBObject(NATIONAL_LEAGUE_CENTRAL, GAMEBACK));
+        listObject.addAll(objectList.get(NATIONAL_LEAGUE_CENTRAL_NUM));
+        listObject.add(new MLBObject(NATIONAL_LEAGUE_WEST, GAMEBACK));
+        listObject.addAll(objectList.get(NATIONAL_LEAGUE_WEST_NUM));
 
+        //TODO Need to initialize adapter here
+
+    }
 }
