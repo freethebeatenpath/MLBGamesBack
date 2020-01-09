@@ -42,7 +42,7 @@ and
         } ],
 ```
 
-I could assume that because the `divisionRecords` showing the American League (West/East/Central) and more games in the American League (from the `leagueRecords`); That the Houston Astros are in the American League. Furthermore, we can look at the number of games between the American League (West/East/Central) and we can conclude that the Houston Astros are in the American League West. I am able to conclude with the division id and the division name can be 100% accurate from the provided JSON if I parse down to the `divisionRecords`. I took another approach.
+I could assume that because the `divisionRecords` showing the American League (West/East/Central) and more games in the American League (from the `leagueRecords`), that the Houston Astros are in the American League. Furthermore, we can look at the number of games between the American League (West/East/Central) and we can conclude that the Houston Astros are in the American League West. I am able to conclude with the division id and the division name can be 100% accurate from the provided JSON if I parse down to the `divisionRecords`. I took another approach.
 
 
 I could run separate API calls to get the appropriate data to fill in the blanks.
