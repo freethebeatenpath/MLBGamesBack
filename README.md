@@ -42,8 +42,27 @@ and
         } ],
 ```
 
-I could assume that because the `divisionRecords` showing the American League (West/East/Central) and more games in the American League (from the `leagueRecords`), that the Houston Astros are in the American League. Furthermore, we can look at the number of games between the American League (West/East/Central) and we can conclude that the Houston Astros are in the American League West. I am able to conclude with the division id and the division name can be 100% accurate from the provided JSON if I parse down to the `divisionRecords`. I took another approach.
+I could assume that because the `divisionRecords` showing the American League (West/East/Central) and more games in the American League (from the `leagueRecords`), that the Houston Astros are in the American League. Furthermore, we can look at the number of games between the American League (West/East/Central) and we can conclude that the Houston Astros are in the American League West. I am able to conclude with the division id and the division name can be 100% accurate from the provided JSON if I parse down to the `divisionRecords` and compare it to the first record in `division`. 
 
+```
+          "division" : {
+            "id" : 200,
+            "link" : "/api/v1/divisions/200"
+          }
+```
+
+vs
+
+```
+          "division" : {
+            "id" : 200,
+            "name" : "American League West",
+            "link" : "/api/v1/divisions/200"
+          }
+```
+
+
+I took another approach.
 
 I could run separate API calls to get the appropriate data to fill in the blanks.
 - https://statsapi.mlb.com/api/v1/divisions/200
