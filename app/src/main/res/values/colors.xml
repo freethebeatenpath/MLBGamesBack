@@ -3,8 +3,14 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="mlbBaseballBlue">#002D72</color>
+    <color name="mlbBaseballBlueDark">#002359</color>
+
+
     <color name="off_black">#313639</color>
     <color name="gray">#cfcfcf</color>
+    <color name="l_gray">#eeeeee</color>
     <color name="drk_gray">#666666</color>
     <color name="black">#000000</color>
 

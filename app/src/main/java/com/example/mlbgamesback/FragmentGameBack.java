@@ -1,6 +1,7 @@
 package com.example.mlbgamesback;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,28 +27,28 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class FragmentGameBack extends Fragment {
-    public final static String AMERICAN_LEAGUE_EAST = "America League East";
-    public final static String AMERICAN_LEAGUE_CENTRAL = "America League Central";
-    public final static String AMERICAN_LEAGUE_WEST = "America League West";
-    public final static String NATIONAL_LEAGUE_EAST = "National League East";
-    public final static String NATIONAL_LEAGUE_CENTRAL = "National League Central";
-    public final static String NATIONAL_LEAGUE_WEST = "National League West";
-    public final static String GAMEBACK = "Games Back";
-    public final static String AMERICAN_LEAGUE_EAST_NUM = "201";
-    public final static String AMERICAN_LEAGUE_CENTRAL_NUM = "202";
-    public final static String AMERICAN_LEAGUE_WEST_NUM = "200";
-    public final static String NATIONAL_LEAGUE_EAST_NUM = "204";
-    public final static String NATIONAL_LEAGUE_CENTRAL_NUM = "205";
-    public final static String NATIONAL_LEAGUE_WEST_NUM = "203";
-    public final static String DATA_RETRIEVAL_RECORDS = "records";
-    public final static String DATA_RETRIEVAL_DIVISION = "division";
-    public final static String DATA_RETRIEVAL_ID = "id";
-    public final static String DATA_RETRIEVAL_TEAMRECORDS = "teamRecords";
-    public final static String DATA_RETRIEVAL_TEAM = "team";
-    public final static String DATA_RETRIEVAL_NAME = "name";
-    public final static String DATA_RETRIEVAL_GAMESBACK = "gamesBack";
+    private final static String AMERICAN_LEAGUE_EAST = "America League East";
+    private final static String AMERICAN_LEAGUE_CENTRAL = "America League Central";
+    private final static String AMERICAN_LEAGUE_WEST = "America League West";
+    private final static String NATIONAL_LEAGUE_EAST = "National League East";
+    private final static String NATIONAL_LEAGUE_CENTRAL = "National League Central";
+    private final static String NATIONAL_LEAGUE_WEST = "National League West";
+    private final static String GAMEBACK = "Games Back";
+    private final static String AMERICAN_LEAGUE_EAST_NUM = "201";
+    private final static String AMERICAN_LEAGUE_CENTRAL_NUM = "202";
+    private final static String AMERICAN_LEAGUE_WEST_NUM = "200";
+    private final static String NATIONAL_LEAGUE_EAST_NUM = "204";
+    private final static String NATIONAL_LEAGUE_CENTRAL_NUM = "205";
+    private final static String NATIONAL_LEAGUE_WEST_NUM = "203";
+    private final static String DATA_RETRIEVAL_RECORDS = "records";
+    private final static String DATA_RETRIEVAL_DIVISION = "division";
+    private final static String DATA_RETRIEVAL_ID = "id";
+    private final static String DATA_RETRIEVAL_TEAMRECORDS = "teamRecords";
+    private final static String DATA_RETRIEVAL_TEAM = "team";
+    private final static String DATA_RETRIEVAL_NAME = "name";
+    private final static String DATA_RETRIEVAL_GAMESBACK = "gamesBack";
 
-    public final static String URL = "https://storage.mobileqa.mlbinfra.com/bpteam/interview/standings.json";
+    private final static String URL = "https://storage.mobileqa.mlbinfra.com/bpteam/interview/standings.json";
     private JSONObject jsonObject;
     private ListView userList;
     private HashMap<String, ArrayList<MLBObject>> objectList;
@@ -133,7 +134,8 @@ public class FragmentGameBack extends Fragment {
         else return NATIONAL_LEAGUE_CENTRAL;
     }
 
-    //re-organizing the hashmap to one list so it can be displayed
+    //re-organizing the hashmap to one list so it can be displayed.
+    // This is important so the adapter is not slowed down by sorting the data.
     private void displayData() {
         listObject = new ArrayList<>();
         listObject.add(new MLBObject(AMERICAN_LEAGUE_EAST, GAMEBACK));
@@ -153,6 +155,7 @@ public class FragmentGameBack extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
                 DisplayAdapter adapter = new DisplayAdapter(getContext(), listObject);
                 userList.setAdapter(adapter);
             }
